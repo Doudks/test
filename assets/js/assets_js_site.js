@@ -186,3 +186,153 @@
   });
 
 })();
+
+const friendsData = {
+  clear: {
+    name: "Clear",
+    avatar: "https://i.imgur.com/JnjU9hO.png",
+    desc: "An 18y Brazilian, better known as Clear, or as Charthool by some people. I like to see the people they love happy and sometimes takes things too seriously.",
+    status: "online"
+  },
+
+  thedragonplayer: {
+    name: "thedragonplayer",
+    avatar: "https://i.imgur.com/1YJoXTY.jpeg",
+    desc: "The Dragon Galaxy, Dragon894, The Dragon Player! Enfim, me chame de Dragon. Gosto de jogos de rpg, estratégia, ação e puzzle (alguns). Minha música favorita é sky full of stars de coldplay. Gosto de ver artes fofas como furries e kemonomimis. Franquia favorita: Assassins Creed",
+    status: "dnd"
+  },
+
+  Drakkoo: {
+    name: "Drakkoo",
+    avatar: "https://i.imgur.com/gJBo5It.png",
+    desc: "Pessoa mais reservada e direta, mas que se empolga fácil falando do que gosta. Nascido em Natal/RN 🇧🇷 (Cidade do Sol), valorizo respeito, boas conversas e pequenos gestos.",
+    status: "dnd"
+  },
+
+  Fakezalem: {
+    name: "Fakezalem",
+    avatar: "https://i.imgur.com/V7MMQWb.png",
+    desc: "💍STARC0LLECT0R 💙 💫 Universum totum duobus tantum numeris servare possumus... SAPERE AUDE!!!",
+    status: "dnd"
+  },
+
+  matheusbleck21: {
+    name: "matheusbleck21",
+    avatar: "https://i.imgur.com/BxjILM7.png",
+    desc: "as vozes não param",
+    status: "dnd"
+  },
+
+  Nikko: {
+    name: "Nikko",
+    avatar: "https://i.imgur.com/AAhjYkX.png",
+    desc: "Gosto de conversar sobre assuntos militares e de guerra em geral. Aposentado do war thunder.",
+    status: "dnd"
+  },
+
+  nitidez: {
+    name: "nitidez",
+    avatar: "https://i.imgur.com/sdQOetg.jpeg",
+    desc: "Sigma, propreier em jogos, desenvolvedor nas horas vagas 🥴",
+    status: "dnd"
+  },
+
+  susielaser: {
+    name: "susielaser",
+    avatar: "https://i.imgur.com/Ad4sTiX.png",
+    desc: "https://guns.lol/susiexz",
+    status: "dnd"
+  },
+
+  Yingloomy: {
+    name: "Yingloomy",
+    avatar: "https://i.imgur.com/10DtG0n.png",
+    desc: "Gosto de RTS, FPS e jogos sandbox, além de história e geografia.",
+    status: "dnd"
+  },
+
+  yoserius: {
+    name: "yoserius",
+    avatar: "https://cdn.imgchest.com/files/8524d3e0e4eb.png",
+    desc: "O ser humano quase perfeito",
+    status: "dnd"
+  },
+
+  Zilirian: {
+    name: "Zilirian",
+    avatar: "https://i.imgur.com/3R7sQVb.png",
+    desc: "Undecided",
+    status: "dnd"
+  },
+
+  jpxwf12: {
+    name: "jpxwf12",
+    avatar: "https://i.imgur.com/Qc9S9bX.png",
+    desc: "Maníaco por carros, estudante de programação",
+    status: "dnd"
+  },
+
+  jann: {
+    name: "jann",
+    avatar: "https://i.imgur.com/2wfpG1n.png",
+    desc: "17 anos, gosta de esportes, mangás e anime.",
+    status: "dnd"
+  }
+};
+
+const mini = document.getElementById("mini-profile");
+const miniAvatar = document.getElementById("mini-avatar");
+const miniName = document.getElementById("mini-name");
+const miniDesc = document.getElementById("mini-desc");
+
+let hideTimeout = null;
+let activeCard = null;
+
+document.querySelectorAll(".friend-card").forEach(card => {
+  const id = card.dataset.id;
+
+  const show = (x, y) => {
+    if (hideTimeout) clearTimeout(hideTimeout);
+    activeCard = card;
+
+    const data = friendsData[id] || {};
+    miniAvatar.src = data.avatar || "https://cdn.discordapp.com/embed/avatars/5.png";
+    miniName.textContent = data.name || card.textContent.trim();
+    miniDesc.textContent = data.desc || "Friend";
+
+    mini.classList.remove("hidden");
+    mini.classList.add("show");
+
+    const padding = 12;
+    const rect = mini.getBoundingClientRect();
+    let left = x + 15;
+    let top = y + 15;
+
+    if (left + rect.width > window.innerWidth - padding)
+      left = x - rect.width - 15;
+    if (top + rect.height > window.innerHeight - padding)
+      top = y - rect.height - 15;
+
+    mini.style.left = Math.max(padding, left) + "px";
+    mini.style.top = Math.max(padding, top) + "px";
+  };
+
+  const hide = () => {
+    hideTimeout = setTimeout(() => {
+      mini.classList.remove("show");
+      mini.classList.add("hidden");
+      activeCard = null;
+    }, 50);
+  };
+
+  card.addEventListener("mouseenter", e => show(e.clientX, e.clientY));
+  card.addEventListener("mousemove", e => activeCard === card && show(e.clientX, e.clientY));
+  card.addEventListener("mouseleave", hide);
+
+  card.addEventListener("touchstart", e => {
+    const t = e.touches[0];
+    show(t.clientX, t.clientY);
+  });
+
+  card.addEventListener("touchend", hide);
+});
