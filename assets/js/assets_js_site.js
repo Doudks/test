@@ -3,6 +3,74 @@
 // Não há uso de eval / new Function / handlers inline.
 // Uso exclusivo de addEventListener e execução compatível com CSP 'self'.
 
+
+function initFriends() {
+  const mini = document.getElementById("mini-profile");
+  const miniAvatar = document.getElementById("mini-avatar");
+  const miniName = document.getElementById("mini-name");
+  const miniDesc = document.getElementById("mini-desc");
+
+  if (!mini || !miniAvatar || !miniName || !miniDesc) return;
+
+  let hideTimeout = null;
+  let activeCard = null;
+
+  document.querySelectorAll(".friend-card").forEach(card => {
+    const id = card.dataset.id;
+
+    const show = (x, y) => {
+      if (hideTimeout) clearTimeout(hideTimeout);
+      activeCard = card;
+
+      const data = friendsData[id] || {};
+      miniAvatar.src = data.avatar || "https://cdn.discordapp.com/embed/avatars/5.png";
+      miniName.textContent = data.name || card.textContent.trim();
+      miniDesc.textContent = data.desc || "Friend";
+
+      mini.classList.remove("hidden");
+      mini.classList.add("show");
+
+      const padding = 12;
+      const rect = mini.getBoundingClientRect();
+
+      let left = x + 15;
+      let top = y + 15;
+
+      if (left + rect.width > window.innerWidth - padding)
+        left = x - rect.width - 15;
+
+      if (top + rect.height > window.innerHeight - padding)
+        top = y - rect.height - 15;
+
+      mini.style.left = Math.max(padding, left) + "px";
+      mini.style.top = Math.max(padding, top) + "px";
+    };
+
+    const hide = () => {
+      hideTimeout = setTimeout(() => {
+        mini.classList.remove("show");
+        mini.classList.add("hidden");
+        activeCard = null;
+      }, 50);
+    };
+
+    // desktop
+    card.addEventListener("mouseenter", e => show(e.clientX, e.clientY));
+    card.addEventListener("mousemove", e => {
+      if (activeCard === card) show(e.clientX, e.clientY);
+    });
+    card.addEventListener("mouseleave", hide);
+
+    // mobile
+    card.addEventListener("touchstart", e => {
+      const t = e.touches[0];
+      show(t.clientX, t.clientY);
+    });
+
+    card.addEventListener("touchend", hide);
+  });
+}
+
 (function () {
   'use strict';
 
@@ -181,6 +249,7 @@
     initMusicButton();
     initAvatarDecoration();
     initBgParallax();
+    initFriends();
     // loading screen uses window.load to match original timing/semantics
     initLoadingScreenBehaviour();
   });
@@ -279,60 +348,3 @@ const friendsData = {
     status: "dnd"
   }
 };
-
-const mini = document.getElementById("mini-profile");
-const miniAvatar = document.getElementById("mini-avatar");
-const miniName = document.getElementById("mini-name");
-const miniDesc = document.getElementById("mini-desc");
-
-let hideTimeout = null;
-let activeCard = null;
-
-document.querySelectorAll(".friend-card").forEach(card => {
-  const id = card.dataset.id;
-
-  const show = (x, y) => {
-    if (hideTimeout) clearTimeout(hideTimeout);
-    activeCard = card;
-
-    const data = friendsData[id] || {};
-    miniAvatar.src = data.avatar || "https://cdn.discordapp.com/embed/avatars/5.png";
-    miniName.textContent = data.name || card.textContent.trim();
-    miniDesc.textContent = data.desc || "Friend";
-
-    mini.classList.remove("hidden");
-    mini.classList.add("show");
-
-    const padding = 12;
-    const rect = mini.getBoundingClientRect();
-    let left = x + 15;
-    let top = y + 15;
-
-    if (left + rect.width > window.innerWidth - padding)
-      left = x - rect.width - 15;
-    if (top + rect.height > window.innerHeight - padding)
-      top = y - rect.height - 15;
-
-    mini.style.left = Math.max(padding, left) + "px";
-    mini.style.top = Math.max(padding, top) + "px";
-  };
-
-  const hide = () => {
-    hideTimeout = setTimeout(() => {
-      mini.classList.remove("show");
-      mini.classList.add("hidden");
-      activeCard = null;
-    }, 50);
-  };
-
-  card.addEventListener("mouseenter", e => show(e.clientX, e.clientY));
-  card.addEventListener("mousemove", e => activeCard === card && show(e.clientX, e.clientY));
-  card.addEventListener("mouseleave", hide);
-
-  card.addEventListener("touchstart", e => {
-    const t = e.touches[0];
-    show(t.clientX, t.clientY);
-  });
-
-  card.addEventListener("touchend", hide);
-});
