@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+
+<meta http-equiv="Content-Security-Policy"
+content="
+  default-src 'self' https: data:;
+  script-src 'self';
+  style-src 'self' https: 'unsafe-inline';
+  img-src 'self' https: data:;
+  media-src 'self' https:;
+  font-src 'self' https: data:;
+">
+  
+
+  <meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Nosifer&family=Rubik+Glitch&family=Metal+Mania&display=swap" rel="stylesheet">
+<title>My Personal Site</title>
+
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Doldie/Mybio/main/favicon.png">
+
+<meta property="og:title" content="My Bio">
+<meta property="og:description" content="Somewhere between silence and chaos.">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Doldie/Mybio/1c409666facfbd27e54285f7c371241e.jpg">
+<meta property="og:url" content="https://doldie.github.io/Mybio">
+<meta property="og:type" content="website">
+
+<meta name="theme-color" content="#0d0d0d">
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+
+.facts-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.music-btn {
+  margin-left: auto;
+}
+
+.profile-pic {
+  position: relative;
+  width: 160px;
+  height: 160px;
+}
+
+/* avatar */
+.avatar-mask {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 2;
+}
+
+#avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* decoração */
+.decoration-mask {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: visible;
+  z-index: 3;
+  pointer-events: none;
+}
+
+#avatar-decoration {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  transform: translate(-50%, -50%);
+}
+
+    #loading-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 20000;
+      background: radial-gradient(circle at top, #1b1f3b, #05010a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #dcdcff;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+      transition: opacity 1.2s ease, transform 1.4s ease, filter 1.4s ease;
+    }
+
+    #loading-screen.exit {
+      opacity: 0;
+      transform: scale(1.25);
+      filter: blur(25px);
+      pointer-events: none;
+    }
+
+    /* IMAGEM DE FUNDO */
+    .loading-bg-image {
+      position: absolute;
+      inset: 0;
+      background-image: url("https://i.imgur.com/3KHoe6a.jpeg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.18;
+      transform: scale(1.15);
+      animation: bgZoom 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgZoom {
+      from { transform: scale(1.15); }
+      to { transform: scale(1.25); }
+    }
+
+    /* estrelas */
+    .loading-stars {
+      position: absolute;
+      inset: 0;
+      background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+      opacity: 0.35;
+      animation: starDrift 25s linear infinite;
+    }
+
+    @keyframes starDrift {
+      from { background-position: 0 0; }
+      to { background-position: 400px 800px; }
+    }
+
+    /* neblina */
+    .loading-fog {
+      position: absolute;
+      inset: -30%;
+      background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
+      animation: fogMove 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes fogMove {
+      from { transform: translateX(-10%) translateY(0); }
+      to { transform: translateX(10%) translateY(-6%); }
+    }
+
+    /* lua */
+    .loading-moon {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ffffff, #cfcfe6);
+      margin-bottom: 30px;
+      animation: moonGlow 5s ease-in-out infinite;
+      z-index: 2;
+    }
+
+    @keyframes moonGlow {
+      0% {
+        box-shadow:
+          0 0 25px rgba(220,220,255,0.3),
+          0 0 50px rgba(220,220,255,0.15);
+      }
+      50% {
+        box-shadow:
+          0 0 70px rgba(220,220,255,0.85),
+          0 0 140px rgba(220,220,255,0.55);
+      }
+      100% {
+        box-shadow:
+          0 0 25px rgba(220,220,255,0.3),
+          0 0 50px rgba(220,220,255,0.15);
+      }
+    }
+
+    .loading-text {
+      letter-spacing: 4px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      z-index: 2;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255,255,255,0.25);
+      border-top: 3px solid #ffffff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 25px;
+      z-index: 2;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-bar {
+      width: 200px;
+      height: 6px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 10px;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .loading-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #cfd2ff, #ffffff);
+      animation: loadProgress 8s linear forwards;
+    }
+
+    @keyframes loadProgress {
+      to { width: 100%; }
+    }
+
+
+/*=====================BG animation==================*/
+
+body {
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  color: white;
+  overflow-x: hidden;
+  background: #000; /* fallback */
+}
+
+
+body {
+  background-attachment: fixed;
+  background-position: center 0px;
+}
+
+#bg-parallax {
+  position: fixed;
+  inset: -20%;
+  z-index: -1;
+  pointer-events: none;
+
+  background: linear-gradient(
+    135deg,
+    #0a0a0f,
+    #1a0030,
+    #3a004d,
+    #003040,
+    #0a0a0f,
+    #260000
+  );
+
+  background-size: 400% 400%;
+  background-position: 50% 50%;
+
+  animation: bgShift 45s ease-in-out infinite;
+  will-change: background-position;
+}
+
+body.loading {
+  overflow: hidden;
+}
+
+@keyframes bgShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+.profile-modal {
+  width: 320px;
+  background: #0f0f14;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  position: relative;
+  animation: popIn 0.25s ease;
+}
+
+.mini-profile {
+  position: fixed;
+  width: 260px;
+  background: #0f1115;
+  border-radius: 12px;
+  box-shadow:
+    0 10px 40px rgba(0,0,0,0.8),
+    inset 0 0 0 1px rgba(255,255,255,0.08);
+  padding: 12px;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.mini-profile.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.mini-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mini-header img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ff3c8a;
+}
+
+.mini-name {
+  font-size: 18px;
+  font-weight: 600;
+  background: linear-gradient(120deg, #fff, #ff8fb8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.mini-body {
+  margin-top: 10px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+}
+
+.hidden {
+  display: none;
+}
+
+.fake-terminal {
+  margin-top: 60px;        /* separa do conteúdo */
+  margin-right: 6px;
+  margin-bottom: 6px;
+
+  text-align: right;       /* canto direito */
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+  color: #ff4fa3;
+
+  display: block;
+  width: 100%;
+  pointer-events: none;
+}
+
+ </style>
+</head>
+<body class="loading">
+
+<div id="bg-parallax"></div>
+
+
+  <div id="loading-screen">
+
+    <div class="loading-bg-image"></div>
+    <div class="loading-stars"></div>
+    <div class="loading-fog"></div>
+
+    <div class="loading-moon"></div>
+    <div class="loading-text">LOADING</div>
+    <div class="loading-spinner"></div>
+
+    <div class="loading-bar">
+      <div class="loading-bar-fill"></div>
+    </div>
+
+  </div>
+
+
+<style>
+
+#music-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.65);
+  padding: 6px 14px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: lowercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+#music-btn:hover {
+  color: #fff;
+  border-color: #fff;
+}
+
+#music-btn.playing {
+  opacity: 0.4;
+  cursor: default;
+}
+
+    /* ================= ESTILOS ORIGINAIS DO SITE ================= */
+    .banner {
+      background-image: url('https://i.imgur.com/p2UeL6u.jpeg');
+      background-size: cover;
+      background-position: center;
+      height: 250px;
+      position: relative;
+      border-bottom: 5px solid #e60054;
+      box-shadow: 0 4px 15px rgba(230,0,84,0.4);
+    }
+    .content {
+  max-width: 800px;
+  margin: 100px auto 50px auto;
+  padding: 20px;
+  background: linear-gradient(
+    180deg,
+    rgba(40, 0, 60, 0.35),
+    rgba(10, 0, 20, 0.55)
+  );
+  border-radius: 15px;
+  backdrop-filter: blur(12px);
+  position: relative;
+  z-index: 1;
+  transition: opacity 1s;
+}
+    h2 {
+      border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+      padding-bottom: 5px;
+    }
+    ul { list-style: none; padding: 0; }
+    ul li::before {
+      content: "•";
+      color: #e30039;
+      margin-right: 8px;
+    }
+    .toggle-btn {
+  display: block;
+  width: 100%;
+  background: linear-gradient(
+    135deg,
+    #e60054,
+    #9b003a,
+    #3a0018
+  );
+  color: white;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 6px;
+  font-weight: bold;
+  box-shadow:
+    0 0 10px rgba(230,0,84,0.4),
+    0 4px 15px rgba(0,0,0,0.6);
+  transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+}
+    .toggle-content {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.35s ease, opacity 0.35s ease;
+      margin-bottom: 15px;
+      width: 100%;
+    }
+    .toggle-content.open { opacity: 1; }
+    .fun-facts { display: flex; flex-direction: column; gap: 10px; }
+    .fact {
+      background: rgba(255,255,255,0.15);
+      padding: 10px 15px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .shuffle-btn {
+  background: linear-gradient(
+    135deg,
+    #ff005d,
+    #b80042,
+    #4a001a
+  );
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 15px;
+  box-shadow:
+    0 0 12px rgba(255,0,93,0.4),
+    0 4px 12px rgba(0,0,0,0.5);
+  transition: transform 0.15s ease, filter 0.2s ease;
+}
+    .shuffle-btn:active {
+      transform: scale(0.92);
+      background: #b80042;
+    }
+    .social-links { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
+    .social-btn {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.1);
+      padding: 8px 12px; border-radius: 8px;
+      text-decoration: none; color: white; font-weight: bold;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .social-btn:hover,
+.toggle-btn:hover,
+.shuffle-btn:hover {
+  background: linear-gradient(
+    135deg,
+    #ff1f75,
+    #b80042,
+    #5a001f
+  );
+  transform: scale(1.03);
+  filter: brightness(1.1);
+}
+    .social-btn img { width: 20px; height: 20px; }
+    .love-list li, .text-block {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 8px 12px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+    
+    .friends-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.friend-card {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 8px 10px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 14px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.friend-card:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateY(-2px);
+}
+
+    
+    .friends-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin: 0 0 12px 0;
+  list-style: none;
+}
+
+.friends-list li {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 14px;
+  white-space: nowrap;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+}
+
+    
+    .hate-list li, .text-block {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 8px 12px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+    
+    @keyframes glowName {
+      0% { text-shadow: 2px 2px 8px rgba(0,0,0,0.8), 0 0 10px rgba(230,0,84,0.8); }
+      50% { text-shadow: 2px 2px 12px rgba(0,0,0,0.9), 0 0 20px rgba(230,0,84,1); }
+      100% { text-shadow: 2px 2px 8px rgba(0,0,0,0.8), 0 0 10px rgba(230,0,84,0.8); }
+    }
+    
+
+
+.profile-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(230, 0, 84, 0.25),
+    rgba(10, 8, 30, 0.95)
+  );
+
+  padding: 18px 22px;
+  border-radius: 25px;
+  border: 2px solid rgba(230, 0, 84, 0.8);
+
+  box-shadow:
+    0 0 20px rgba(230, 0, 84, 0.4),
+    0 0 40px rgba(230, 0, 84, 0.2);
+
+  position: absolute;
+  bottom: -80px;
+  left: 20px;
+
+  overflow: visible; /* TEM QUE SER visible */
+
+    z-index: 10;
+    isolation: isolate;
+}
+.profile-name {
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: 2px;
+
+  background: linear-gradient(
+    120deg,
+    #ffffff,
+    #ff8fb8,
+    #e60054
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.35),
+    0 0 18px rgba(255,143,184,0.45);
+}
+
+
+.profile-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: -2px; /* COLADO NA BORDA */
+  border-radius: 27px;
+
+  background: conic-gradient(
+    from var(--neon-angle),
+    transparent 0deg,
+    rgba(255,255,255,0.9) 30deg,
+    #ffffff 50deg,
+    #ffb3d1 80deg,
+    #ff3c8a 120deg,
+    #e60054 180deg,
+    rgba(255,255,255,0.8) 230deg,
+    transparent 360deg
+  );
+
+  padding: 2px;
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  z-index: -1;
+  opacity: 0;
+
+  filter:
+    blur(4px)
+    drop-shadow(0 0 10px rgba(255,255,255,1))
+    drop-shadow(0 0 18px #ff8fb8)
+    drop-shadow(0 0 32px #e60054);
+
+  pointer-events: none;
+}
+/*========================================================*/
+.profile-wrapper.neon-active::before {
+  animation: neonBorderSpinFade 0.85s linear forwards;
+}
+
+
+@keyframes neonPulse {
+  0%   { filter: blur(100px) brightness(0.9); }
+  50%  { filter: blur(140px) brightness(1.4); }
+  100% { filter: blur(100px) brightness(1); }
+}
+
+
+@property --neon-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.profile-wrapper {
+  --neon-angle: 0deg;
+}
+
+@keyframes neonBorderSpin {
+  from {
+    --neon-angle: 0deg;
+  }
+  to {
+    --neon-angle: 360deg;
+  }
+}
+/*=============================keyframes=============================*/
+@keyframes neonBorderSpinFade {
+  0% {
+    --neon-angle: 0deg;
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    --neon-angle: 360deg;
+    opacity: 0;
+  }
+}
+    
+</style>
+
+  <div class="banner">
+<div class="profile-wrapper">
+
+      <div class="profile-pic">
+  <div class="avatar-mask">
+    <img id="avatar-img" src="https://cdn.discordapp.com/avatars/634505467183235085/89170e2effa76130ca20c6d99c08a1e9.png?size=512">
+  </div>
+
+  <div class="decoration-mask">
+    <img id="avatar-decoration">
+  </div>
+</div>
+
+
+<div class="profile-name">Doldie</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <h2>About Me</h2>
+    <button class="toggle-btn" data-target="likes">Things I Love</button>
+    <div id="likes" class="toggle-content">
+      <ul class="love-list">
+        <li>Cars that push the limits...</li>
+        <li>Fighter jets, especially the Mirage 2000-5F</li>
+        <li>Games: War Thunder, Phantom Forces, Phasmophobia</li>
+        <li>Subtle gothic aesthetics: black clothes, eyeliner, fishnets...</li>
+        <li>Anime like Yofukashi no Uta, Berserk, Chainsaw Man, Made in Abyss...</li>
+        <li>Loona. Yes, Loona, from Helluva Boss</li>
+        <li>Cheetahs. Fast, graceful, cute.</li>
+        <li>Quiet nights, soft music, moments to just… exist.</li>
+      </ul>
+    </div>
+
+    <button class="toggle-btn" data-target="dislikes">Things I Don’t Like</button>
+    <div id="dislikes" class="toggle-content">
+      <ul class="hate-list">
+            <li>People who ignore obvious truths
+            <li>People who play the victim</li>
+            <li>People who use manipulation</li>
+            <li>people that don’t admit that they’re wrong.</li>
+            <li>People who keep bitching on the internet</li>
+            <li>Waking up early</li>
+            <li>Insects in general</li>
+            <li>Brainrot</li>
+            <li>Hipocrisy</li>
+            <li>Untruth</li>
+            <li>Sports, except for E-sports, and specially football</li>
+      </ul>
+    </div>
+
+    <button class="toggle-btn" data-target="about">Who I Am</button>
+    <div id="about" class="toggle-content">
+      <div class="text-block"><p>Myself. Who'd you excpect me to be?</p></div>
+    </div>
+
+    <button class="toggle-btn" data-target="obsessions">Things I Get Obsessed With</button>
+    <div id="obsessions" class="toggle-content">
+      <div class="text-block"><p>I am obsessed with Loona, speed, horror movies, gambling, cars, jets, tanks, games, drawing...</p></div>
+    </div>
+
+    <button class="toggle-btn" data-target="dreams">Dreams</button>
+    <div id="dreams" class="toggle-content">
+      <div class="text-block"><p>Become a professional pilot</p></div>
+    <div class="text-block"><p>Become a professional digital artist</p></div>
+    <div class="text-block"><p>Become a professional programmer</p></div>  
+    </div>
+    
+
+    <button class="toggle-btn" data-target="friends">Friends</button>
+    <div id="friends" class="toggle-content">
+      <div class="text-block"><p>My dear friends:</p>
+
+<div class="friends-grid">
+  
+  <div class="friend-card" data-id="clear">Clear</div>
+  <div class="friend-card" data-id="thedragonplayer">thedragonplayer</div>
+  <div class="friend-card" data-id="Drakkoo">Drakkoo</div>
+  <div class="friend-card" data-id="Fakezalem">Fakezalem</div>
+  <div class="friend-card" data-id="matheusbleck21">matheusbleck21</div>
+  <div class="friend-card" data-id="Nikko">Nikko</div>
+  <div class="friend-card" data-id="nitidez">nitidez</div>
+  <div class="friend-card" data-id="susielaser">susielaser</div>
+  <div class="friend-card" data-id="Yingloomy">Yingloomy</div>
+  <div class="friend-card" data-id="yoserius">yoserius</div>
+  <div class="friend-card" data-id="Zilirian">Zilirian</div>
+  <div class="friend-card" data-id="jpxwf12">jpxwf12</div>
+  <div class="friend-card" data-id="jann">jann</div>
+  
+      </div>
+         </div>
+         
+          <div class="text-block"><p>Honorable mentions</p>
+        <ul>
+          <li>kirit_ls</li><li>Thunder</li><li>fl4king</li><li>Zimrico</li><li>Lks²</li><li>lg_oficial</li><li>Állan</li><li>foxy06</li><li>impisb.</li><li>hz4troz</li><li>gallet_ofc</li><li>martine[...]
+        </ul>
+      </div>
+    </div>
+
+  <h2>Social Media</h2>
+<div class="social-links">
+  <a class="social-btn" href="https://www.roblox.com/users/289149578/profile" target="_blank">
+    <img src="https://i.imgur.com/Mf3ATZj.png"> Roblox
+  </a>
+
+  <a class="social-btn" href="https://steamcommunity.com/profiles/76561199031088390" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg"> Steam
+  </a>
+
+  <a class="social-btn" href="https://www.youtube.com/channel/UCb33G1UKxmxe-23q-bvFDDQ" target="_blank">
+    <img src="https://i.imgur.com/gfTqX0r.png"> YouTube
+  </a>
+
+  <a class="social-btn" href="https://github.com/Doldie" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"> GitHub
+  </a>
+
+  <!-- NOVOS -->
+  <a class="social-btn" href="https://open.spotify.com/user/kxkkezbsyn617tgu1fk3oumr9?si=OCO3uiwkQD2nQh9qO1TKSA" target="_blank">
+    <img src="https://i.imgur.com/EolHL8t.png"> Spotify
+  </a>
+
+  <a class="social-btn" href="https://www.reddit.com/u/Doldieks/s/GmmUkl1spr" target="_blank">
+    <img src="https://i.imgur.com/mFWWo1t.png"> Reddit
+  </a>
+
+  <a class="social-btn" href="https://x.com/Douldd_" target="_blank">
+    <img src="https://i.imgur.com/XS658rc.png"> X
+  </a>
+</div>
+
+
+    <h2>Fun Facts</h2>
+    <div class="fun-facts" id="funFactsContainer">
+      <div class="fact">I can spend hours perfecting an anime sketch.</div>
+      <div class="fact">Nighttime is my favorite time to be outside.</div>
+      <div class="fact">I’ve memorized specs of my favorite cars.</div>
+      <div class="fact">I love learning random aviation trivia.</div>
+    </div>
+    <div class="facts-actions">
+  <button class="shuffle-btn" data-action="shuffle-facts">Shuffle Facts</button>
+  <button id="music-btn" class="shuffle-btn music-btn">Sound</button>
+</div>
+  </div>
+
+  <audio id="bg-music" preload="none" loop>
+    <source src="https://raw.githubusercontent.com/Doldie/Mybio/main/music.mp3" type="audio/mpeg">
+  </audio>
+
+  <div id="mini-profile" class="mini-profile hidden">
+    <div class="mini-header">
+      <img id="mini-avatar" src="">
+      <div class="mini-name" id="mini-name"></div>
+    </div>
+    <div class="mini-body" id="mini-desc">
+      Friend
+    </div>
+  </div>
+
+  <script src="assets/js/site.js" defer></script>
+</body>
+</html>
