@@ -106,17 +106,17 @@ content="
       pointer-events: none;
     }
 
-    /* IMAGEM DE FUNDO */
-    .loading-bg-image {
-      position: absolute;
-      inset: 0;
-      background-image: url("https://i.imgur.com/3KHoe6a.jpeg");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      opacity: 0.18;
-      transform: scale(1.15);
-      animation: bgZoom 18s ease-in-out infinite alternate;
+/* IMAGEM DE FUNDO */
+.loading-bg-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.18;
+  transform: scale(1.15);
+  animation: bgZoom 18s ease-in-out infinite alternate;
+}
     }
 
     @keyframes bgZoom {
@@ -352,6 +352,24 @@ body.loading {
 }
 
  </style>
+
+  <script>
+  const loadingBgImages = [
+    'https://i.imgur.com/RRF2YIU.png',
+    'https://i.imgur.com/E48oiig.jpeg',
+    'https://i.imgur.com/P88EubR.jpeg',
+    'https://i.imgur.com/NxKH983.jpeg',
+    'https://i.imgur.com/gBqkPqC.jpeg'
+  ];
+  const randomLoadingBg = loadingBgImages[Math.floor(Math.random() * loadingBgImages.length)];
+  document.addEventListener('DOMContentLoaded', () => {
+    const loadingBgElement = document.querySelector('.loading-bg-image');
+    if (loadingBgElement) {
+      loadingBgElement.style.backgroundImage = `url("${randomLoadingBg}")`;
+    }
+  });
+</script>
+  
 </head>
 <body class="loading">
 
@@ -410,7 +428,7 @@ body.loading {
 
     /* ================= ESTILOS ORIGINAIS DO SITE ================= */
     .banner {
-      background-image: url('');
+      background-image: url('https://i.imgur.com/p2UeL6u.jpeg');
       background-size: cover;
       background-position: center;
       height: 250px;
@@ -1233,10 +1251,8 @@ clickableButtons.forEach(btn => {
   });
 </script>
 
-<script>
-  const banners = ['https://i.imgur.com/i2vqMBO.jpeg','https://i.imgur.com/FrMBmon.jpeg','https://i.imgur.com/q967mX0.png','https://i.imgur.com/VoDw3uD.jpeg','https://i.imgur.com/R7anXC7.png','https://i.imgur.com/2e3BhEw.jpeg','https://i.imgur.com/OduWFZb.jpeg','https://i.imgur.com/6LGtjYz.jpeg'];
-  document.querySelector('.banner').style.backgroundImage = `url(${banners[Math.floor(Math.random() * banners.length)]})`;
-</script>
+
+
 
 </body>
 </html>
