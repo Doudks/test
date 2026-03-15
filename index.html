@@ -116,7 +116,6 @@ content="
   opacity: 0.18;
   transform: scale(1.15);
   animation: bgZoom 18s ease-in-out infinite alternate;
-}
     }
 
     @keyframes bgZoom {
@@ -225,12 +224,16 @@ content="
 
 /*=====================BG animation==================*/
 
+:root {
+  --bg-darkness: 0.65;
+}
+  
 body {
   margin: 0;
   font-family: 'Quicksand', sans-serif;
   color: white;
   overflow-x: hidden;
-  background: #000; /* fallback */
+  background: transparent; /* fallback */
 }
 
 
@@ -241,31 +244,56 @@ body {
 
 #bg-parallax {
   position: fixed;
-  inset: -20%;
-  z-index: -1;
+  inset: 0;
+  z-index: 0;
   pointer-events: none;
+  overflow: hidden;
 
-  background: linear-gradient(
-    135deg,
-    #0a0a0f,
-    #1a0030,
-    #3a004d,
-    #003040,
-    #0a0a0f,
-    #260000
-  );
+  background-image:
+    linear-gradient(
+      135deg,
+      #0a0a0f,
+      #1a0030,
+      #3a004d,
+      #003040,
+      #0a0a0f,
+      #260000
+    ),
+    url("https://i.imgur.com/xtzaH3v.png");
 
-  background-size: 400% 400%;
-  background-position: 50% 50%;
+  background-size:
+    400% 400%,
+    cover;
+
+  background-position:
+    50% 50%,
+    center;
+
+  background-repeat:
+    no-repeat,
+    no-repeat;
+
+  background-blend-mode:
+    screen,
+    normal;
 
   animation: bgShift 45s ease-in-out infinite;
   will-change: background-position;
 }
-
-body.loading {
-  overflow: hidden;
+  #bg-parallax::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  opacity: 1;
+  transition: opacity 0.9s ease;
 }
 
+body.hover-bg #bg-parallax::before {
+  opacity: 0.35;
+  transition: opacity 2s ease 0.35s;
+}
+  
 @keyframes bgShift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -393,12 +421,13 @@ body.loading {
   </div>
 
   <script>
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      document.getElementById("loading-screen").classList.add("exit");
-      document.body.classList.remove("loading");
-    }, 8000);
-  });
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.getElementById("loading-screen").classList.add("exit");
+    document.body.classList.remove("loading");
+    document.getElementById("bg-parallax").style.opacity = "1";
+  }, 8000);
+});
 </script>
 
 
@@ -542,6 +571,42 @@ body.loading {
   filter: brightness(1.1);
 }
     .social-btn img { width: 20px; height: 20px; }
+
+.toggle-btn,
+.shuffle-btn,
+.social-btn,
+.friend-card,
+.text-block,
+.fact,
+.love-list li,
+.hate-list li,
+.friends-list li,
+.profile-wrapper,
+.content {
+  transition:
+    opacity 1s ease,
+    background 1s ease,
+    transform 0.25s ease,
+    box-shadow 1s ease,
+    filter 1s ease;
+}
+
+body.hover-bg .toggle-btn,
+body.hover-bg .shuffle-btn,
+body.hover-bg .social-btn,
+body.hover-bg .friend-card,
+body.hover-bg .text-block,
+body.hover-bg .fact,
+body.hover-bg .love-list li,
+body.hover-bg .hate-list li,
+body.hover-bg .friends-list li,
+body.hover-bg .profile-wrapper,
+body.hover-bg .content {
+  opacity: 0.22;
+  box-shadow: none !important;
+  filter: saturate(0.8);
+}
+  
     .love-list li, .text-block {
       background: rgba(255, 255, 255, 0.08);
       padding: 8px 12px;
@@ -783,7 +848,7 @@ body.loading {
     <button class="toggle-btn" onclick="toggleSection('dislikes')">Things I Don’t Like</button>
     <div id="dislikes" class="toggle-content">
       <ul class="hate-list">
-            <li>People who ignore obvious truths
+            <li>People who ignore obvious truths</li>
             <li>People who play the victim</li>
             <li>People who use manipulation</li>
             <li>people that don’t admit that they’re wrong.</li>
@@ -1251,8 +1316,41 @@ clickableButtons.forEach(btn => {
   });
 </script>
 
+<script>
+  const interactiveSelectors = [
+    "button",
+    ".social-btn",
+    ".friend-card",
+    ".toggle-btn",
+    ".shuffle-btn",
+    "#music-btn",
+    ".profile-wrapper",
+    "a"
+  ].join(",");
 
+  function activateBGHover() {
+    document.body.classList.add("hover-bg");
+  }
 
+  function clearHoverState() {
+    document.body.classList.remove("hover-bg");
+  }
+
+  document.addEventListener("mousemove", (e) => {
+    const overInteractive = e.target.closest(interactiveSelectors);
+    const insideContent = e.target.closest(".content, .banner, .mini-profile");
+
+    if (!overInteractive && !insideContent) {
+      activateBGHover();
+    } else {
+      clearHoverState();
+    }
+  });
+
+  document.addEventListener("mouseleave", () => {
+    clearHoverState();
+  });
+</script>
 
 </body>
 </html>
