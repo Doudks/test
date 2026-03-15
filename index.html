@@ -118,6 +118,16 @@ content="
   animation: bgZoom 18s ease-in-out infinite alternate;
     }
 
+  @media (max-width: 768px) {
+  .loading-bg-image {
+    background-size: contain;
+    background-position: center center;
+    opacity: 0.30;
+    transform: scale(1);
+    animation: none;
+  }
+}
+
     @keyframes bgZoom {
       from { transform: scale(1.15); }
       to { transform: scale(1.25); }
@@ -280,6 +290,14 @@ body {
   animation: bgShift 45s ease-in-out infinite;
   will-change: background-position;
 }
+
+@media (max-width: 768px) {
+  #bg-parallax {
+    animation: none;
+    background-position: center, center;
+  }
+}
+  
   #bg-parallax::before {
   content: "";
   position: absolute;
@@ -1276,11 +1294,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <script>
   const bg = document.getElementById("bg-parallax");
+  const isDesktopParallax = window.matchMedia("(min-width: 769px) and (hover: hover) and (pointer: fine)").matches;
 
-  window.addEventListener("scroll", () => {
-    const offset = window.scrollY * 0.025; // ~2px a cada 100px
-    bg.style.backgroundPosition = `50% calc(50% + ${offset}px)`;
-  });
+  if (isDesktopParallax) {
+    window.addEventListener("scroll", () => {
+      const offset = window.scrollY * 0.025;
+      bg.style.backgroundPosition = `50% calc(50% + ${offset}px), center`;
+    });
+  }
 </script>
 
 <div id="mini-profile" class="mini-profile hidden">
@@ -1476,13 +1497,7 @@ document.querySelectorAll(".friend-card").forEach(card => {
   });
 });
 </script>
-
-
-<div class="fake-terminal">
-  system: alive<br>
-  signal: stable
-</div>
-
+  
 <audio id="btn-click-sound" preload="auto">
   <source src="https://github.com/Doudks/Bio/raw/refs/heads/main/button-click.mp3" type="audio/mpeg">
 </audio>
@@ -1531,39 +1546,45 @@ clickableButtons.forEach(btn => {
 </script>
 
 <script>
-  const interactiveSelectors = [
-    "button",
-    ".social-btn",
-    ".friend-card",
-    ".toggle-btn",
-    ".shuffle-btn",
-    "#music-btn",
-    ".profile-wrapper",
-    "a"
-  ].join(",");
+  const supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-  function activateBGHover() {
-    document.body.classList.add("hover-bg");
-  }
+  if (supportsHover) {
+    const interactiveSelectors = [
+      "button",
+      ".social-btn",
+      ".friend-card",
+      ".toggle-btn",
+      ".shuffle-btn",
+      "#music-btn",
+      ".profile-wrapper",
+      "a"
+    ].join(",");
 
-  function clearHoverState() {
+    function activateBGHover() {
+      document.body.classList.add("hover-bg");
+    }
+
+    function clearHoverState() {
+      document.body.classList.remove("hover-bg");
+    }
+
+    document.addEventListener("mousemove", (e) => {
+      const overInteractive = e.target.closest(interactiveSelectors);
+      const insideContent = e.target.closest(".content, .banner, .mini-profile");
+
+      if (!overInteractive && !insideContent) {
+        activateBGHover();
+      } else {
+        clearHoverState();
+      }
+    });
+
+    document.addEventListener("mouseleave", () => {
+      clearHoverState();
+    });
+  } else {
     document.body.classList.remove("hover-bg");
   }
-
-  document.addEventListener("mousemove", (e) => {
-    const overInteractive = e.target.closest(interactiveSelectors);
-    const insideContent = e.target.closest(".content, .banner, .mini-profile");
-
-    if (!overInteractive && !insideContent) {
-      activateBGHover();
-    } else {
-      clearHoverState();
-    }
-  });
-
-  document.addEventListener("mouseleave", () => {
-    clearHoverState();
-  });
 </script>
 
   <div id="game-modal" class="game-modal hidden">
