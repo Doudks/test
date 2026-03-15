@@ -410,7 +410,7 @@ body.loading {
 
     /* ================= ESTILOS ORIGINAIS DO SITE ================= */
     .banner {
-      background-image: url('https://i.imgur.com/p2UeL6u.jpeg');
+      background-image: url('');
       background-size: cover;
       background-position: center;
       height: 250px;
@@ -1233,8 +1233,10 @@ clickableButtons.forEach(btn => {
   });
 </script>
 
-
-
+<script>
+  const banners = ['https://i.imgur.com/i2vqMBO.jpeg','https://i.imgur.com/FrMBmon.jpeg','https://i.imgur.com/q967mX0.png','https://i.imgur.com/VoDw3uD.jpeg','https://i.imgur.com/R7anXC7.png','https://i.imgur.com/2e3BhEw.jpeg','https://i.imgur.com/OduWFZb.jpeg','https://i.imgur.com/6LGtjYz.jpeg'];
+  document.querySelector('.banner').style.backgroundImage = `url(${banners[Math.floor(Math.random() * banners.length)]})`;
+</script>
 
 </body>
 </html>
