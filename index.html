@@ -224,16 +224,12 @@ content="
 
 /*=====================BG animation==================*/
 
-:root {
-  --bg-darkness: 0.65;
-}
-  
 body {
   margin: 0;
   font-family: 'Quicksand', sans-serif;
   color: white;
   overflow-x: hidden;
-  background: transparent; /* fallback */
+  background: #000; /* fallback */
 }
 
 
@@ -244,12 +240,15 @@ body {
 
 #bg-parallax {
   position: fixed;
-  inset: 0;
-  z-index: 0;
+  inset: -20%;
+  z-index: -1;
   pointer-events: none;
-  overflow: hidden;
 
   background-image:
+    linear-gradient(
+      rgba(0, 0, 0, 0.45),
+      rgba(0, 0, 0, 0.45)
+    ),
     linear-gradient(
       135deg,
       #0a0a0f,
@@ -259,41 +258,36 @@ body {
       #0a0a0f,
       #260000
     ),
-    url("https://i.imgur.com/xtzaH3v.png");
+    url("https://i.imgur.com/xtzaH3v.png);
 
   background-size:
+    cover,
     400% 400%,
     cover;
 
   background-position:
+    center,
     50% 50%,
     center;
 
   background-repeat:
     no-repeat,
+    no-repeat,
     no-repeat;
 
   background-blend-mode:
+    normal,
     screen,
     normal;
 
   animation: bgShift 45s ease-in-out infinite;
   will-change: background-position;
 }
-  #bg-parallax::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-  opacity: 1;
-  transition: opacity 0.9s ease;
+
+body.loading {
+  overflow: hidden;
 }
 
-body.hover-bg #bg-parallax::before {
-  opacity: 0.35;
-  transition: opacity 2s ease 0.35s;
-}
-  
 @keyframes bgShift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -379,148 +373,43 @@ body.hover-bg #bg-parallax::before {
   pointer-events: none;
 }
 
-.games-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 12px;
-  margin-bottom: 20px;
-  align-items: start;
-}
-
-.game-card {
-  position: relative;
-  border-radius: 14px;
-  overflow: hidden;
-  cursor: pointer;
-  background: rgba(255,255,255,0.04);
-  box-shadow:
-    0 8px 24px rgba(0,0,0,0.35),
-    inset 0 0 0 1px rgba(255,255,255,0.06);
-  transition:
-    transform 0.22s ease,
-    box-shadow 0.25s ease,
-    filter 0.25s ease;
-  aspect-ratio: 2 / 3;
-  width: 100%;
-}
-
-.game-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.25s ease;
-}
-
-.game-card:hover {
-  transform: scale(1.04);
-  box-shadow:
-    0 12px 30px rgba(0,0,0,0.45),
-    0 0 18px rgba(230,0,84,0.22);
-}
-
-.game-card:hover img {
-  transform: scale(1.06);
-}
-
-.game-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 30000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.game-modal.hidden {
-  display: none;
-}
-
-.game-modal-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.72);
-  backdrop-filter: blur(8px);
-}
-
-.game-modal-content {
-  position: relative;
-  z-index: 2;
-  width: min(92vw, 420px);
-  background: linear-gradient(
-    180deg,
-    rgba(35, 0, 30, 0.92),
-    rgba(10, 0, 20, 0.96)
-  );
-  border-radius: 18px;
-  padding: 18px;
-  box-shadow:
-    0 20px 60px rgba(0,0,0,0.65),
-    0 0 24px rgba(230,0,84,0.2);
-  transform: scale(0.88);
-  opacity: 0;
-  animation: gameModalPop 0.28s ease forwards;
-}
-
-.game-modal-content img {
-  width: 100%;
-  max-height: 70vh;
-  object-fit: cover;
-  border-radius: 14px;
-  display: block;
-}
-
-.game-modal-title {
-  margin-top: 14px;
-  text-align: center;
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: #ffd1e4;
-}
-
-.game-modal-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 34px;
-  height: 34px;
-  border: none;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.08);
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-  z-index: 3;
-  transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.game-modal-close:hover {
-  transform: scale(1.08);
-  background: rgba(255,255,255,0.16);
-}
-
-@keyframes gameModalPop {
-  from {
-    transform: scale(0.88);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-  
  </style>
 
   <script>
   const loadingBgImages = [
-    'https://i.imgur.com/RRF2YIU.png',
-    'https://i.imgur.com/E48oiig.jpeg',
-    'https://i.imgur.com/P88EubR.jpeg',
-    'https://i.imgur.com/NxKH983.jpeg',
-    'https://i.imgur.com/gBqkPqC.jpeg'
+'https://i.imgur.com/RRF2YIU.png',
+'https://i.imgur.com/E48oiig.jpeg',
+'https://i.imgur.com/P88EubR.jpeg',
+'https://i.imgur.com/rOXOteX.png',
+'https://i.imgur.com/gBqkPqC.jpeg',
+'https://i.imgur.com/9NLeL2B.jpeg',
+'https://i.imgur.com/95Yp2my.jpeg',
+'https://i.imgur.com/WW0eJG8.png',
+'https://i.imgur.com/xn2CgWS.jpeg',
+'https://i.imgur.com/9U95k22.jpeg',
+'https://i.imgur.com/PO59aaO.jpeg',
+'https://i.imgur.com/XaH869f.jpeg',
+'https://i.imgur.com/AoEvWwW.jpeg',
+'https://i.imgur.com/fgJAhuO.jpeg',
+'https://i.imgur.com/1wfj9ON.jpeg',
+'https://i.imgur.com/dDP2K2r.jpeg',
+'https://i.imgur.com/Z3q5uoE.jpeg',
+'https://i.imgur.com/9K74LnT.jpeg',
+'https://i.imgur.com/g3dT9Fy.jpeg',
+'https://i.imgur.com/RfgVDoD.jpeg',
+'https://i.imgur.com/ajA0Tlt.jpeg',
+'https://i.imgur.com/Gi4cQKq.jpeg',
+'https://i.imgur.com/cfDT9wq.jpeg',
+'https://i.imgur.com/T0eANrS.jpeg',
+'https://i.imgur.com/8KflWHf.jpeg',
+'https://i.imgur.com/aVify0x.jpeg',
+'https://i.imgur.com/BR1KKrv.jpeg',
+'https://i.imgur.com/OwyXcON.jpeg',
+'https://i.imgur.com/JnPdk20.jpeg',
+'https://i.imgur.com/LPgba1U.jpeg',
+'https://i.imgur.com/v5ZbWNF.jpeg',
+'https://i.imgur.com/xUOdq2w.jpeg',
+'https://i.imgur.com/n2pWxY6.jpeg'
   ];
   const randomLoadingBg = loadingBgImages[Math.floor(Math.random() * loadingBgImages.length)];
   document.addEventListener('DOMContentLoaded', () => {
@@ -554,13 +443,12 @@ body.hover-bg #bg-parallax::before {
   </div>
 
   <script>
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    document.getElementById("loading-screen").classList.add("exit");
-    document.body.classList.remove("loading");
-    document.getElementById("bg-parallax").style.opacity = "1";
-  }, 8000);
-});
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      document.getElementById("loading-screen").classList.add("exit");
+      document.body.classList.remove("loading");
+    }, 8000);
+  });
 </script>
 
 
@@ -704,42 +592,6 @@ window.addEventListener("load", () => {
   filter: brightness(1.1);
 }
     .social-btn img { width: 20px; height: 20px; }
-
-.toggle-btn,
-.shuffle-btn,
-.social-btn,
-.friend-card,
-.text-block,
-.fact,
-.love-list li,
-.hate-list li,
-.friends-list li,
-.profile-wrapper,
-.content {
-  transition:
-    opacity 1s ease,
-    background 1s ease,
-    transform 0.25s ease,
-    box-shadow 1s ease,
-    filter 1s ease;
-}
-
-body.hover-bg .toggle-btn,
-body.hover-bg .shuffle-btn,
-body.hover-bg .social-btn,
-body.hover-bg .friend-card,
-body.hover-bg .text-block,
-body.hover-bg .fact,
-body.hover-bg .love-list li,
-body.hover-bg .hate-list li,
-body.hover-bg .friends-list li,
-body.hover-bg .profile-wrapper,
-body.hover-bg .content {
-  opacity: 0.22;
-  box-shadow: none !important;
-  filter: saturate(0.8);
-}
-  
     .love-list li, .text-block {
       background: rgba(255, 255, 255, 0.08);
       padding: 8px 12px;
@@ -1042,59 +894,6 @@ body.hover-bg .content {
       </div>
     </div>
 
-    
-  <button class="toggle-btn" onclick="toggleSection('favorite-games')">Favorite Games</button>
-
-<div id="favorite-games" class="toggle-content">
-  <div class="games-grid">
-    
-    <div class="game-card" data-title="War Thunder">
-      <img src="https://i.imgur.com/I4eq4p7.jpeg" alt="War Thunder">
-    </div>
-
-    <div class="game-card" data-title="Forza Horizon 5">
-      <img src="https://i.imgur.com/bWlYfOu.jpeg" alt="Forza Horizon 5">
-    </div>
-
-    <div class="game-card" data-title="Phasmophobia">
-      <img src="https://i.imgur.com/s3QdIAv.jpeg" alt="Phasmophobia">
-    </div>
-
-    <div class="game-card" data-title="Hollow Knight">
-      <img src="https://i.imgur.com/KPR6teq.jpeg" alt="Hollow Knight">
-    </div>
-
-    <div class="game-card" data-title="Terraria">
-      <img src="https://i.imgur.com/9jEhRde.jpeg" alt="Terraria">
-    </div>
-
-    <div class="game-card" data-title="BeamNG.drive">
-      <img src="https://i.imgur.com/vadNBBj.png" alt="BeamNG.drive">
-    </div>
-    
-    <div class="game-card" data-title="The Coffin of Andy & Leyley">
-      <img src="https://i.imgur.com/f4xeD5B.png" alt="The coffin of Andy and Leyley">
-</div>
-        <div class="game-card" data-title="ULTRAKILL">
-      <img src="https://i.imgur.com/JtPZsmF.png" alt="ULTRAKILL">
-</div>
-            <div class="game-card" data-title="Dead Cells">
-      <img src="https://i.imgur.com/XgG95OP.png" alt="Dead Cells">
-</div>
-            <div class="game-card" data-title="Undertale">
-      <img src="https://i.imgur.com/vQ3MY6T.png" alt="Undertale">
-              </div>
-            <div class="game-card" data-title="Battlefield 4">
-      <img src="https://i.imgur.com/tqlI7TU.jpeg" alt="Battlefield 4">
-              </div>
-            <div class="game-card" data-title="Factorio">
-      <img src="https://i.imgur.com/X2nVd0B.png" alt="Factorio">
-    
-    </div>
-  </div>
-</div>
-    
-    
   <h2>Social Media</h2>
 <div class="social-links">
   <a class="social-btn" href="https://www.roblox.com/users/289149578/profile" target="_blank">
@@ -1126,7 +925,8 @@ body.hover-bg .content {
     <img src="https://i.imgur.com/XS658rc.png"> X
   </a>
 </div>
-    
+
+
     <h2>Fun Facts</h2>
     <div class="fun-facts" id="funFactsContainer">
       <div class="fact">I can spend hours perfecting an anime sketch.</div>
@@ -1501,87 +1301,8 @@ clickableButtons.forEach(btn => {
   });
 </script>
 
-<script>
-  const interactiveSelectors = [
-    "button",
-    ".social-btn",
-    ".friend-card",
-    ".toggle-btn",
-    ".shuffle-btn",
-    "#music-btn",
-    ".profile-wrapper",
-    "a"
-  ].join(",");
 
-  function activateBGHover() {
-    document.body.classList.add("hover-bg");
-  }
 
-  function clearHoverState() {
-    document.body.classList.remove("hover-bg");
-  }
 
-  document.addEventListener("mousemove", (e) => {
-    const overInteractive = e.target.closest(interactiveSelectors);
-    const insideContent = e.target.closest(".content, .banner, .mini-profile");
-
-    if (!overInteractive && !insideContent) {
-      activateBGHover();
-    } else {
-      clearHoverState();
-    }
-  });
-
-  document.addEventListener("mouseleave", () => {
-    clearHoverState();
-  });
-</script>
-
-  <div id="game-modal" class="game-modal hidden">
-  <div class="game-modal-overlay"></div>
-
-  <div class="game-modal-content">
-    <button id="close-game-modal" class="game-modal-close">✕</button>
-    <img id="game-modal-img" src="" alt="">
-    <div id="game-modal-title" class="game-modal-title"></div>
-  </div>
-</div>
-
-<script>
-  const gameCards = document.querySelectorAll(".game-card");
-  const gameModal = document.getElementById("game-modal");
-  const gameModalImg = document.getElementById("game-modal-img");
-  const gameModalTitle = document.getElementById("game-modal-title");
-  const closeGameModal = document.getElementById("close-game-modal");
-  const gameModalOverlay = document.querySelector(".game-modal-overlay");
-
-  gameCards.forEach(card => {
-    card.addEventListener("click", () => {
-      const img = card.querySelector("img");
-
-      gameModalImg.src = img.src;
-      gameModalImg.alt = img.alt;
-      gameModalTitle.textContent = card.dataset.title;
-
-      gameModal.classList.remove("hidden");
-      document.body.style.overflow = "hidden";
-    });
-  });
-
-  function closeModal() {
-    gameModal.classList.add("hidden");
-    document.body.style.overflow = "";
-  }
-
-  closeGameModal.addEventListener("click", closeModal);
-  gameModalOverlay.addEventListener("click", closeModal);
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !gameModal.classList.contains("hidden")) {
-      closeModal();
-    }
-  });
-</script>
-  
 </body>
 </html>
