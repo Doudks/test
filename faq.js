@@ -260,7 +260,7 @@ const faqItems = [
   },
   {
     question: "Do you ghost people?",
-    answer: "Not on purpose"
+    answer: "Not on purpose... I swear"
   },
   {
     question: "Do you like tattoos or piercings?",
@@ -301,6 +301,38 @@ const faqItems = [
   {
     question: "Do you prefer taking care of someone or being taken care of?",
     answer: "Being taken care of"
+  },
+  {
+    question: "What is your favorite TV show?",
+      answer: "Supernatural and The Flash"
+  },
+  {
+    question: "What languages do you speak?",
+      answer: "Portuguese, English and a bit of Spanish"
+  },
+  {
+    question: "What’s your zodiac sign?",
+      answer: "Scorpio"
+  },
+  {
+    question: "What course are you taking?",
+      answer: "Mechanical Engineering (crazy stuff i know)"
+  },
+  {
+    question: "What’s your favorite celestial body?",
+      answer: "Black Holes"
+  },
+  {
+    question: "Do you get bored easily?",
+      answer: "Yes"
+  },
+  {
+    question: "Do you overthink?",
+      answer: "All day"
+  },
+  {
+    question: "Are you okay?",
+      answer: "I think and hope so"
   }
 ];
 
