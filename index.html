@@ -43,11 +43,6 @@ content="
   margin-left: auto;
 }
 
-.profile-pic {
-  position: relative;
-  width: 160px;
-  height: 160px;
-}
 
 /* avatar */
 .avatar-mask {
@@ -374,9 +369,12 @@ body.hover-bg #bg-parallax::before {
 .mini-name {
   font-size: 18px;
   font-weight: 600;
-  background: linear-gradient(120deg, #fff, #ff8fb8);
+  display: inline-block;
+  background: linear-gradient(to bottom, #ffffff 0%, #bfbfbf 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .mini-body {
@@ -651,8 +649,8 @@ window.addEventListener("load", () => {
   background-size: cover;
   background-position: center 84%;
 
-  border-bottom: 5px solid #e60054;
-  box-shadow: 0 4px 15px rgba(230, 0, 84, 0.4);
+  border-bottom: 5px solid #bfbfbf;
+  box-shadow: 0 4px 15px rgba(191, 191, 191, 0.35);
   overflow: visible;
 }
     .content {
@@ -860,7 +858,6 @@ body.hover-bg .content {
     }
 
 
-
 .profile-wrapper {
   display: flex;
   align-items: flex-end;
@@ -868,52 +865,32 @@ body.hover-bg .content {
 
   background: linear-gradient(
     135deg,
-    rgba(230, 0, 84, 0.25),
+    rgba(191, 191, 191, 0.18),
     rgba(10, 8, 30, 0.95)
   );
 
   padding: 18px 22px;
   border-radius: 25px;
-  border: 2px solid rgba(230, 0, 84, 0.8);
+  border: 2px solid #bfbfbf;
 
   box-shadow:
-    0 0 20px rgba(230, 0, 84, 0.4),
-    0 0 40px rgba(230, 0, 84, 0.2);
+    0 0 20px rgba(191, 191, 191, 0.28),
+    0 0 40px rgba(191, 191, 191, 0.14);
 
   position: absolute;
   bottom: -80px;
   left: 20px;
+  overflow: visible;
+  z-index: 10;
+  isolation: isolate;
 
-  overflow: visible; /* TEM QUE SER visible */
-
-    z-index: 10;
-    isolation: isolate;
+  --neon-angle: 0deg;
 }
-.profile-name {
-  font-size: 34px;
-  font-weight: 600;
-  letter-spacing: 2px;
-
-  background: linear-gradient(
-    120deg,
-    #ffffff,
-    #ff8fb8,
-    #e60054
-  );
-
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  text-shadow:
-    0 0 10px rgba(255,255,255,0.35),
-    0 0 18px rgba(255,143,184,0.45);
-}
-
 
 .profile-wrapper::before {
   content: "";
   position: absolute;
-  inset: -2px; /* COLADO NA BORDA */
+  inset: -2px;
   border-radius: 27px;
 
   background: conic-gradient(
@@ -921,9 +898,9 @@ body.hover-bg .content {
     transparent 0deg,
     rgba(255,255,255,0.9) 30deg,
     #ffffff 50deg,
-    #ffb3d1 80deg,
-    #ff3c8a 120deg,
-    #e60054 180deg,
+    #d9d9d9 80deg,
+    #a6a6a6 120deg,
+    #737373 180deg,
     rgba(255,255,255,0.8) 230deg,
     transparent 360deg
   );
@@ -936,14 +913,69 @@ body.hover-bg .content {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
 
-  z-index: -1;
+  z-index: 1;
   opacity: 0;
 
   filter:
     blur(4px)
     drop-shadow(0 0 10px rgba(255,255,255,1))
-    drop-shadow(0 0 18px #ff8fb8)
-    drop-shadow(0 0 32px #e60054);
+    drop-shadow(0 0 18px #bfbfbf)
+    drop-shadow(0 0 32px #7a7a7a);
+
+  pointer-events: none;
+}
+
+.profile-pic {
+  position: relative;
+  z-index: 2;
+  width: 160px;
+  height: 160px;
+}
+
+.profile-name {
+  position: relative;
+  z-index: 2;
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: 2px;
+
+  background: linear-gradient(
+    to bottom,
+    #ffffff 0%,
+    #d9d9d9 40%,
+    #000000 100%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.35),
+    0 0 18px rgba(200,200,200,0.35);
+}
+
+.profile-wrapper.neon-active::before {
+  animation: neonBorderSpinFade 0.85s linear forwards;
+}
+
+  padding: 2px;
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  z-index: 0;
+  opacity: 0;
+
+  filter:
+    blur(4px)
+    drop-shadow(0 0 10px rgba(255,255,255,1))
+    drop-shadow(0 0 18px #bfbfbf)
+    drop-shadow(0 0 32px #7a7a7a);
 
   pointer-events: none;
 }
