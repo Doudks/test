@@ -64,7 +64,7 @@ const faqItems = [
   },
   {
     question: "Do you do calls?",
-    answer: "No"
+    answer: "Only with close friends"
   },
   {
     question: "Do you like furry stuff?",
