@@ -642,15 +642,19 @@ window.addEventListener("load", () => {
 }
 
     /* ================= ESTILOS ORIGINAIS DO SITE ================= */
-    .banner {
-      background-image: url('https://i.imgur.com/p2UeL6u.jpeg');
-      background-size: cover;
-      background-position: center;
-      height: 250px;
-      position: relative;
-      border-bottom: 5px solid #e60054;
-      box-shadow: 0 4px 15px rgba(230,0,84,0.4);
-    }
+.banner {
+  position: relative;
+  height: 250px;
+
+  background-image: url('https://i.imgur.com/5JaJwBk.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 84%;
+
+  border-bottom: 5px solid #e60054;
+  box-shadow: 0 4px 15px rgba(230, 0, 84, 0.4);
+  overflow: visible;
+}
     .content {
   max-width: 800px;
   margin: 100px auto 50px auto;
@@ -1002,7 +1006,7 @@ body.hover-bg .content {
 
       <div class="profile-pic">
   <div class="avatar-mask">
-    <img id="avatar-img" src="https://cdn.discordapp.com/avatars/634505467183235085/89170e2effa76130ca20c6d99c08a1e9.png?size=512">
+    <img id="avatar-img" src="https://i.imgur.com/DX81yVk.png">
   </div>
 
   <div class="decoration-mask">
@@ -1259,7 +1263,7 @@ body.hover-bg .content {
 
  // Avatar decoration via CDN (SEM API, SEM FETCH)
 const decorationUrl =
-  "https://cdn.discordapp.com/avatar-decoration-presets/a_be111e4303d634c55500202a61656e0b.png?size=512";
+  "https://cdn.discordapp.com/avatar-decoration-presets/a_c7d0b92c2c06bbb3fed297b34a51d5e5.png?size=160";
 
 document.addEventListener("DOMContentLoaded", () => {
   const deco = document.getElementById("avatar-decoration");
