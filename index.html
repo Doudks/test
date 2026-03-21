@@ -52,12 +52,14 @@ content="
   border-radius: 50%;
   overflow: hidden;
   z-index: 2;
+  border: 2.3px solid #bfbfbf;
 }
 
 #avatar-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform: scale(1.05);
 }
 
 /* decoração */
@@ -653,14 +655,14 @@ window.addEventListener("load", () => {
   box-shadow: 0 4px 15px rgba(191, 191, 191, 0.35);
   overflow: visible;
 }
-    .content {
+        .content {
   max-width: 800px;
   margin: 100px auto 50px auto;
   padding: 20px;
   background: linear-gradient(
     180deg,
-    rgba(40, 0, 60, 0.35),
-    rgba(10, 0, 20, 0.55)
+    rgba(55, 55, 55, 0.45),
+    rgba(20, 20, 20, 0.7)
   );
   border-radius: 15px;
   backdrop-filter: blur(12px);
@@ -1132,56 +1134,14 @@ body.hover-bg .content {
     </div>
 
     
-  <button class="toggle-btn" onclick="toggleSection('favorite-games')">Favorite Games</button>
-
-<div id="favorite-games" class="toggle-content">
-  <div class="games-grid">
+      <!-- =============================================== FAVORITE STUFF ==================================================== -->
     
-    <div class="game-card" data-title="War Thunder">
-      <img src="https://i.imgur.com/I4eq4p7.jpeg" alt="War Thunder">
-    </div>
+    <h2>Favorite Stuff</h2>
+<div id="favorites-root"></div>
 
-    <div class="game-card" data-title="Forza Horizon 5">
-      <img src="https://i.imgur.com/bWlYfOu.jpeg" alt="Forza Horizon 5">
-    </div>
+<script src="favorites.js"></script>
 
-    <div class="game-card" data-title="Phasmophobia">
-      <img src="https://i.imgur.com/s3QdIAv.jpeg" alt="Phasmophobia">
-    </div>
-
-    <div class="game-card" data-title="Hollow Knight">
-      <img src="https://i.imgur.com/KPR6teq.jpeg" alt="Hollow Knight">
-    </div>
-
-    <div class="game-card" data-title="Terraria">
-      <img src="https://i.imgur.com/9jEhRde.jpeg" alt="Terraria">
-    </div>
-
-    <div class="game-card" data-title="BeamNG.drive">
-      <img src="https://i.imgur.com/vadNBBj.png" alt="BeamNG.drive">
-    </div>
-    
-    <div class="game-card" data-title="The Coffin of Andy & Leyley">
-      <img src="https://i.imgur.com/f4xeD5B.png" alt="The coffin of Andy and Leyley">
-</div>
-        <div class="game-card" data-title="ULTRAKILL">
-      <img src="https://i.imgur.com/JtPZsmF.png" alt="ULTRAKILL">
-</div>
-            <div class="game-card" data-title="Dead Cells">
-      <img src="https://i.imgur.com/XgG95OP.png" alt="Dead Cells">
-</div>
-            <div class="game-card" data-title="Undertale">
-      <img src="https://i.imgur.com/vQ3MY6T.png" alt="Undertale">
-              </div>
-            <div class="game-card" data-title="Battlefield 4">
-      <img src="https://i.imgur.com/tqlI7TU.jpeg" alt="Battlefield 4">
-              </div>
-            <div class="game-card" data-title="Factorio">
-      <img src="https://i.imgur.com/X2nVd0B.png" alt="Factorio">
-    
-    </div>
-  </div>
-</div>
+     <!-- ================================================  END  ============================================================== -->
     
     
   <h2>Social Media</h2>
