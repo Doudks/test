@@ -24,7 +24,7 @@ const friendsData = {
   Fakezalem: {
     name: "Fakezalem",
     avatar: "https://i.imgur.com/jUiuNSr.png",
-    desc: "💍STARC0LLECT0R 💙 💫 Universum totum duobus tantum numeris servare possumus... SAPERE AUDE!!! Eu gosto de matemática, física, e tecnologia, de mexer em eletrônicos , computadores e reparar-los, minha meta é fazer faculdade de engenharia da computação",
+    desc: "Universum totum duobus tantum numeris servare possumus... SAPERE AUDE!!! Eu gosto de matemática, física, e tecnologia, de mexer em eletrônicos , computadores e reparar-los, minha meta é fazer faculdade de engenharia da computação",
     status: "dnd"
   },
 
