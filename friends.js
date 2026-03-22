@@ -45,7 +45,7 @@ const friendsData = {
   nitidez: {
     name: "nitidez",
     avatar: "https://i.imgur.com/sdQOetg.jpeg",
-    desc: "Eu sou Nitidez, sigma e propreier em jogos, curto anime/série/filme/mangá/manhwa/fanfic /dorama/seu rabo e sou desenvolvedor nas horas vagas. (Bolinha bolão uwu) 🥴",
+    desc: "Eu sou Nitidez, sigma e propreier em jogos, curto anime/série/filme/mangá/manhwa/ fanfic/dorama/seu rabo e sou desenvolvedor nas horas vagas. (Bolinha bolão uwu) 🥴",
     status: "dnd"
   },
 
@@ -122,6 +122,16 @@ function renderFriendsCards() {
       return `<div class="friend-card" data-id="${id}">${label}</div>`;
     })
     .join("");
+}
+
+// | preload friends avatars |
+function preloadFriendsAvatars() {
+  Object.values(friendsData).forEach((friend) => {
+    if (!friend.avatar) return;
+
+    const img = new Image();
+    img.src = friend.avatar;
+  });
 }
 
 // | mini profile logic |
@@ -224,4 +234,5 @@ function setupFriendsMiniProfile() {
 document.addEventListener("DOMContentLoaded", () => {
   renderFriendsCards();
   setupFriendsMiniProfile();
+  preloadFriendsAvatars();
 });
