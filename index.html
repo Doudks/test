@@ -42,7 +42,112 @@
     6) Responsivo
   ========================================================== -->
   
+  <!-- ============================================================================================================================================= -->
+  <!-- ===========================================================|    CSS    |===================================================================== -->
+  <!-- ============================================================================================================================================= -->
   <style>
+  
+    /* ========================================================| PROFILE STATUS |====================================================================== */
+  .profile-text {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.discord-status {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+}
+
+.discord-presence {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.discord-status-indicator {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  right: 145px;
+  display: inline-block;
+  border: 3px solid rgba(20, 20, 20, 0.95);
+  box-sizing: border-box;
+}
+
+/* Online */
+.discord-status-indicator.online {
+  background: #23a55a;
+  position: absolute;
+  width: 32.5px;
+  height: 32.5px;
+}
+
+.discord-status-indicator.online::before {
+  content: "";
+  position: absolute;
+  top: -9.5px;
+  right: -9.5px;
+  width: 45.5px;
+  height: 45.5px;
+  background: rgba(20, 20, 20, 0.98);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+/* Idle */
+.discord-status-indicator.idle {
+  background: #f0b232;
+}
+
+.discord-status-indicator.idle::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  right: 8.5px;
+  width: 18.5px;
+  height: 18.5px;
+  background: rgba(20, 20, 20, 0.98);
+  border-radius: 50%;
+}
+
+/* Do Not Disturb */
+.discord-status-indicator.dnd {
+  background: #f23f43;
+}
+
+.discord-status-indicator.dnd::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 19px;
+  height: 6px;
+  background: rgba(20, 20, 20, 0.98);
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+}
+
+/* Offline */
+.discord-status-indicator.offline {
+  background: #80848e;
+}
+
+.discord-status-indicator.offline::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: rgba(20, 20, 20, 0.95);
+}
+  
     /* ==================================================| ROOT / BASE / RESET |========================================================== */
     :root {
       --bg-darkness: 0.65;
@@ -923,9 +1028,15 @@
         </div>
       </div>
 
-      <div class="profile-name">Doldie</div>
-    </div>
+
+     <div class="profile-text">
+     <div class="profile-name" id="discord-username">Doldie</div>
+     <div class="discord-presence">
+  <span id="discord-status" class="discord-status-indicator offline"></span>
+</div>
   </div>
+</div>
+</div>
 
   <!-- ==================================================| MAIN CONTENT |========================================================== -->
   <div class="content">
@@ -1112,6 +1223,7 @@
   <script src="favorites.js"></script>
   <script src="faq.js"></script>
   <script src="friends.js"></script>
+  <script src="lanyard.js"></script>
   <!-- ==================================================| DATA / CONFIG SCRIPTS |==========================================================  -->
   <script>
     const loadingBgImages = [
