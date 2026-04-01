@@ -560,26 +560,102 @@
       margin-left: auto;
     }
 
-    #music-btn {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.25);
-      color: rgba(255,255,255,0.65);
-      padding: 6px 14px;
-      font-size: 13px;
-      letter-spacing: 2px;
-      text-transform: lowercase;
-      box-shadow: none;
-    }
+.music-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
 
-    #music-btn:hover {
-      color: #fff;
-      border-color: #fff;
-    }
+.music-nav-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.72);
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  padding: 0;
+  margin-top: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  box-shadow: none;
+  transition: 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    #music-btn.playing {
-      opacity: 0.4;
-      cursor: default;
-    }
+.music-nav-btn:hover {
+  color: #fff;
+  border-color: #fff;
+  background: rgba(255,255,255,0.06);
+}
+
+.music-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.music-nav-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.72);
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  padding: 0;
+  margin-top: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  box-shadow: none;
+  transition: 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.music-nav-btn:hover {
+  color: #fff;
+  border-color: #fff;
+  background: rgba(255,255,255,0.06);
+}
+
+#music-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.72);
+  height: 34px;
+  padding: 0 14px;
+  margin-top: 0;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: lowercase;
+  line-height: 1;
+  box-shadow: none;
+  transition: 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#music-btn:hover {
+  color: #fff;
+  border-color: #fff;
+  background: rgba(255,255,255,0.06);
+}
+
+#music-btn.playing {
+  color: #ff8fbd;
+  border-color: rgba(255,143,189,0.65);
+  opacity: 1;
+  cursor: pointer;
+}
 
     .shuffle-btn:active {
       transform: scale(0.92);
@@ -1180,10 +1256,15 @@
       <div class="fact">I love learning random aviation trivia.</div>
     </div>
 
-    <div class="facts-actions">
-      <button class="shuffle-btn" onclick="shuffleFacts(this)">Shuffle Facts</button>
-      <button id="music-btn" class="shuffle-btn music-btn">Sound</button>
-    </div>
+<div class="facts-actions">
+  <button class="shuffle-btn" onclick="shuffleFacts(this)">Shuffle Facts</button>
+
+  <div class="music-controls">
+    <button id="prev-music-btn" class="music-nav-btn" type="button">◀</button>
+    <button id="music-btn" class="shuffle-btn music-btn" type="button">play</button>
+    <button id="next-music-btn" class="music-nav-btn" type="button">▶</button>
+  </div>
+</div>
   </div>
 
   <!-- ==================================================| MINI PROFILE HOVER CARD |==========================================================  -->
@@ -1196,9 +1277,8 @@
   </div>
 
   <!-- ==================================================| AUDIO ELEMENTS |==========================================================  -->
-  <audio id="bg-music" preload="none" loop>
-    <source src="https://raw.githubusercontent.com/Doldie/Mybio/main/music.mp3" type="audio/mpeg">
-  </audio>
+
+  <audio id="bg-music" preload="auto"></audio>
 
   <audio id="btn-click-sound" preload="auto">
     <source src="https://github.com/Doudks/Bio/raw/refs/heads/main/button-click.mp3" type="audio/mpeg">
@@ -1388,27 +1468,10 @@
     });
   </script>
 
-  <!-- ==================================================| MUUSIC |==========================================================  -->
-  <script>
-    const music = document.getElementById("bg-music");
-    const musicBtn = document.getElementById("music-btn");
+  <!-- ==================================================| MUUSIC |=======================================================================  -->
+  
+  <script defer src="music.js"></script>
 
-    music.volume = 0.16;
-
-    musicBtn.addEventListener("click", () => {
-      if (music.paused) {
-        music.currentTime = 0;
-        music.muted = false;
-        music.play();
-        musicBtn.textContent = "Playing";
-        musicBtn.classList.add("playing");
-      } else {
-        music.pause();
-        musicBtn.textContent = "Sound";
-        musicBtn.classList.remove("playing");
-      }
-    });
-  </script>
   <!-- ==================================================| FRIEND MINI PROFILE |==========================================================  -->
   <script>
     const mini = document.getElementById("mini-profile");
