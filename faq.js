@@ -288,7 +288,7 @@ const faqItems = [
   },
   {
     question: "Do you like it when someone insists, or does that annoy you?",
-    answer: "It annoys the ***** outta me"
+    answer: "It annoys the FUCK outta me"
   },
   {
     question: "Are you more rational or emotional?",
