@@ -154,15 +154,37 @@ const musicList = [
     background: "https://i.imgur.com/lPc0CiA.png"
   },
   {
-    name: "Aishite Aishite Aishite",
+    name: "Kikuo - Love me Love me Love me (Aishite, Aishite, Aishite)",
     src: "https://github.com/Doudks/test/raw/refs/heads/main/Workingsongs/Kikuo%20-%20%E6%84%9B%E3%81%97%E3%81%A6%E6%84%9B%E3%81%97%E3%81%A6%E6%84%9B%E3%81%97%E3%81%A6.mp3",
-    thumbnail: "https://i.ytimg.com/vi/U8BlNEKq0r8/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLDQ_CUdxjv0AFMTJSFnDV46_kC55g",
-    youtube: "https://www.youtube.com/watch?v=U8BlNEKq0r8",
+    thumbnail: "https://i.imgur.com/7WEBrOS.png",
+    youtube: "https://www.youtube.com/watch?v=NTrm_idbhUk",
     background: "https://i.imgur.com/ixlb5YJ.png"
-  }
+  },
+  {
+    name: "Best Junkie You Adore",
+    src: "https://github.com/Doudks/test/raw/refs/heads/main/Workingsongs/junkie.mp3",
+    thumbnail: "https://i.imgur.com/RDmjyIc.png",
+    youtube: "https://www.youtube.com/watch?v=t5pi_Hy7V54",
+    background: "https://i.imgur.com/HtN2Bmc.png"
+  },
+  {
+    name: "Glass Animals - The Other Side Of Paradise",
+    src: "https://github.com/Doudks/test/raw/refs/heads/main/Workingsongs/Side%20of%20Paradise.mp3",
+    thumbnail: "https://i.imgur.com/VGQEFYI.jpeg",
+    youtube: "https://www.youtube.com/watch?v=cpJ5JIscnLs",
+    background: "https://i.imgur.com/DyJ3zOL.jpeg"
+  },
   
 ];
 
+/* {
+    name: "placeholder",
+    src: "placeholder",
+    thumbnail: "placeholder",
+    youtube: "placeholder",
+    background: "placeholder" 
+  } */
+  
 let currentMusicIndex = 0;
 let playerOpened = false;
 
