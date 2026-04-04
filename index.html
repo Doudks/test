@@ -569,10 +569,13 @@
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
     }
 
-    .mini-profile {
+        .mini-profile {
       position: fixed;
       width: 260px;
-      background: #0f1115;
+      background-color: #0f1115;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       border-radius: 12px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.8), inset 0 0 0 1px rgba(255,255,255,0.08);
       padding: 12px;
@@ -581,7 +584,58 @@
       opacity: 0;
       transform: scale(0.95);
       transition: opacity 0.15s ease, transform 0.15s ease;
+      overflow: hidden;
     }
+    
+    .mini-profile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.0),
+    rgba(0,0,0,0.02),
+    rgba(0,0,0,0.08)
+  );
+  z-index: 0;
+}
+
+.mini-name {
+  display: inline-block;
+  margin-left: 0;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: rgba(8, 8, 12, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+  font-size: 18px;
+  font-weight: 600;
+  background-image: linear-gradient(to bottom, #ffffff 0%, #bfbfbf 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.mini-body {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(8, 8, 12, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+  font-size: 13px;
+  color: rgba(255,255,255,0.82);
+  line-height: 1.35;
+}
+
+.mini-header,
+.mini-body {
+  position: relative;
+  z-index: 1;
+}
 
     .mini-profile.show {
       opacity: 1;
@@ -1222,36 +1276,31 @@
       }
     }
 
-    @media (max-width: 768px) {
-      #bg-parallax {
-        animation: none;
-        background-position: center, center;
-      }
-
-      .loading-bg-image {
-        background-size: cover;
-        background-position: center center;
-        opacity: 0.30;
-        transform: scale(1.22);
-        animation: none;
-      }
-    }
-
     @media (max-width: 640px) {
-      .games-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+  .games-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 
-      .facts-actions {
-        flex-direction: column;
-        align-items: stretch;
-      }
+  .facts-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
 
-      .music-controls {
-        margin-left: 0;
-        justify-content: flex-end;
-      }
-    }
+  .facts-actions .shuffle-btn {
+    width: auto;
+    align-self: auto;
+  }
+
+  .music-controls {
+    margin-left: 0;
+    width: auto;
+    justify-content: flex-end;
+  }
+}
   </style>
 </head>
 <body class="loading">
@@ -1364,7 +1413,7 @@
         <div class="text-block">
           <p>Honorable mentions</p>
           <ul>
-            <li>kirit_ls</li><li>our.rumi</li><li>susielaser</li><li>Thunder</li><li>fl4king</li><li>Zimrico</li><li>Lks²</li><li>lg_oficial</li><li>Állan</li><li>foxy06</li><li>hz4troz</li><li>gallet_ofc</li><li>martinelli_rs</li><li>eeveefofa</li>
+            <li>kirit_ls</li><li>our.rumi</li><li>susielaser</li><li>Thunder</li><li>fl4king</li><li>Zimrico</li><li>Lks²</li><li>lg_oficial</li><li>Állan</li><li>foxy06</li><li>gallet_ofc</li><li>martinelli_rs</li><li>eeveefofa</li>
           </ul>
         </div>
       </div>
@@ -1445,12 +1494,12 @@
     MINI PROFILE CARD
   ========================================================== -->
   <div id="mini-profile" class="mini-profile hidden">
-    <div class="mini-header">
-      <img id="mini-avatar" src="" alt="Friend avatar">
-      <div class="mini-name" id="mini-name"></div>
-    </div>
-    <div class="mini-body" id="mini-desc">Friend</div>
+  <div class="mini-header">
+    <img id="mini-avatar" src="" alt="Friend avatar">
+    <div class="mini-name" id="mini-name"></div>
   </div>
+  <div class="mini-body" id="mini-desc">Friend</div>
+</div>
 
   <!-- =========================================================
     AUDIO
@@ -1611,7 +1660,7 @@
         'I can name almost every Mirage 2000 variant.',
         'I track crazy car 0-400 km/h times for fun.',
         'War Thunder is life',
-        'I’m obsessed with cars like the Rimac Nevera R and Koenigsegg Jesko.',
+        'I’m obsessed with cars like the Corvette C8 and Koenigsegg Jesko.',
         'I enjoy drawing characters late at night.',
         'I can spend hours comparing aircraft designs just for fun.',
         'My fav color is Rose red',
@@ -1631,18 +1680,29 @@
         'Loona? perfection',
         '🥀',
         'Amd > Intel',
-        'Reshiram best pokemon',
-        'Cats > dogs',
+        'Reshiram best pokemon.',
+        'Cats > dogs.',
         "I'm lazy asf 💔",
-        'V8 > V12',
-        'Lamborghini Murcielago best sounding car ever made',
-        'Unpopular opinion, Sousou no Frieren is Mid',
-        'Monster energy is great',
-        'Kiwi my fav fruit',
-        'Wannabe extrovert',
-        "Yaps a lot about things i'm obsessed with",
-        'Passionfruit the best to make juice with',
-        'I like to argue about something irrelevant all day'
+        'V8 > V12.',
+        'Lamborghini Murcielago best sounding car ever made.',
+        'Unpopular opinion, Sousou no Frieren is Mid.',
+        'Monster energy is great.',
+        'Kiwi my fav fruit.',
+        'Wannabe extrovert.',
+        "Yaps a lot about things i'm obsessed with.",
+        'Passionfruit the best to make juice with.',
+        'I like to argue about something irrelevant all day.',
+        'I enjoy being alone.',
+        'I spend nights awake just thinking.',
+        'Music hits different at night.',
+        'There is a music player on the site with my fav songs.',
+        "I'm gonna tell you that I'm fine even when I'm not.",
+        'I love furries, but I dont consider myself one.',
+        "I will hate you if you're an insistent person.",
+        'I think 5 times before doing something, and still do it wrong.',
+        'Do not ask me how much money and time I spend making avatars in Roblox monthly',
+        'JOJO',
+        'あなたの時間を無駄にしてしまいました。'
       ];
 
       const container = document.getElementById('funFactsContainer');
